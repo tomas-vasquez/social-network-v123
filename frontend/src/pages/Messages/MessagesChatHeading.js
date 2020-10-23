@@ -1,17 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { generatePath, withRouter, Link } from 'react-router-dom';
-import { useSubscription } from '@apollo/client';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { generatePath, withRouter, Link } from "react-router-dom";
+import { useSubscription } from "@apollo/client";
 
-import Search from 'components/Search';
-import Avatar from 'components/Avatar';
+import Search from "components/Search";
+import Avatar from "components/Avatar";
 
-import { IS_USER_ONLINE_SUBSCRIPTION } from 'graphql/user';
+import { IS_USER_ONLINE_SUBSCRIPTION } from "graphql/user";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
 
-import { useStore } from 'store';
+import { useStore } from "store";
 
 const Root = styled.div`
   position: relative;
@@ -94,13 +94,13 @@ const MessagesChatHeading = ({ location, match, chatUser }) => {
     return (
       <Root>
         <InputContainer>
-          <To>To:</To>
+          <To>Para:</To>
           <Search
             location={location}
             backgroundColor="white"
             hideIcon
             forMessage
-            placeholder="Type the name of a person"
+            placeholder="buscar persona"
             autoFocus
           />
         </InputContainer>

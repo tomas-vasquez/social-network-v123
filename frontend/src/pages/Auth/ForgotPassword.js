@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { useMutation } from "@apollo/client";
 
-import { Spacing } from 'components/Layout';
-import { H1, A, Error } from 'components/Text';
-import { InputText, Button } from 'components/Form';
-import Head from 'components/Head';
+import { Spacing } from "components/Layout";
+import { H1, A, Error } from "components/Text";
+import { InputText, Button } from "components/Form";
+import Head from "components/Head";
 
-import { REQUEST_PASSWORD_RESET } from 'graphql/user';
+import { REQUEST_PASSWORD_RESET } from "graphql/user";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
 
 const Root = styled.div`
   padding: 0 ${(p) => p.theme.spacing.sm};
@@ -43,10 +43,12 @@ const Text = styled.p`
  * Forgot password page
  */
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-  const [requestResetPassword, { loading }] = useMutation(REQUEST_PASSWORD_RESET);
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [requestResetPassword, { loading }] = useMutation(
+    REQUEST_PASSWORD_RESET
+  );
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -57,12 +59,12 @@ const ForgotPassword = () => {
 
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(String(email).toLowerCase())) {
-      setError('Enter a valid email address.');
+      setError("Ingresa un correo electrónico válido");
       return;
     }
 
-    setError('');
-    setEmail('');
+    setError("");
+    setEmail("");
     try {
       const response = await requestResetPassword({
         variables: { input: { email } },
@@ -91,14 +93,21 @@ const ForgotPassword = () => {
 
       <Container>
         <Spacing bottom="sm">
-          <H1>Reset Password</H1>
+          <H1>Restablecer contraseña</H1>
           <Text>
-            Enter the email address associated with your account, and we’ll email you a link to reset your password.
+            Ingresa el correo electrónico asociado a tu cuenta, y le enviaremos
+            un correo electrónico con un enlace para restablecer su contraseña.
           </Text>
         </Spacing>
 
         <form onSubmit={(e) => handleSubmit(e, requestResetPassword)}>
-          <InputText type="text" name="email" values={email} onChange={handleEmailChange} placeholder="Email" />
+          <InputText
+            type="text"
+            name="email"
+            values={email}
+            onChange={handleEmailChange}
+            placeholder="Correo electrónico"
+          />
 
           {error && (
             <Spacing bottom="sm" top="sm">
@@ -108,10 +117,10 @@ const ForgotPassword = () => {
 
           <Spacing top="xs" />
 
-          <Button disabled={loading}>Send reset link</Button>
+          <Button disabled={loading}>enviar correo</Button>
 
           <Spacing top="sm">
-            <A to={Routes.HOME}>&larr; Back to Sign Up</A>
+            <A to={Routes.HOME}>Crear cuenta nueva</A>
           </Spacing>
         </form>
       </Container>

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
-import { Spacing } from 'components/Layout';
-import { H1, Error } from 'components/Text';
-import { Loading } from 'components/Loading';
-import { InputText, Button } from 'components/Form';
-import Head from 'components/Head';
+import React, { useState } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+import { Spacing } from "components/Layout";
+import { H1, Error } from "components/Text";
+import { Loading } from "components/Loading";
+import { InputText, Button } from "components/Form";
+import Head from "components/Head";
 
-import { VERIFY_RESET_PASSWORD_TOKEN, RESET_PASSWORD } from 'graphql/user';
+import { VERIFY_RESET_PASSWORD_TOKEN, RESET_PASSWORD } from "graphql/user";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
 
 const Root = styled.div`
   padding: 0 ${(p) => p.theme.spacing.sm};
@@ -38,17 +38,22 @@ const Container = styled.div`
  * Reset password page
  */
 const ResetPassword = ({ history, location, refetch }) => {
-  const [values, setValues] = useState({ password: '', confirmPassword: '' });
-  const [error, setError] = useState('');
-  const [mutationError, setMutationError] = useState('');
+  const [values, setValues] = useState({ password: "", confirmPassword: "" });
+  const [error, setError] = useState("");
+  const [mutationError, setMutationError] = useState("");
   const url = new URLSearchParams(location.search);
-  const email = url.get('email');
-  const token = url.get('token');
-  const { queryLoading, error: queryError } = useQuery(VERIFY_RESET_PASSWORD_TOKEN, {
-    variables: { email, token },
-  });
+  const email = url.get("email");
+  const token = url.get("token");
+  const { queryLoading, error: queryError } = useQuery(
+    VERIFY_RESET_PASSWORD_TOKEN,
+    {
+      variables: { email, token },
+    }
+  );
   const { password, confirmPassword } = values;
-  const [resetPassword, { loading: mutationLoading }] = useMutation(RESET_PASSWORD);
+  const [resetPassword, { loading: mutationLoading }] = useMutation(
+    RESET_PASSWORD
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,23 +64,23 @@ const ResetPassword = ({ history, location, refetch }) => {
     e.preventDefault();
 
     if (!password || !confirmPassword) {
-      setError('Enter password and Confirm password.');
+      setError("Enter password and Confirm password.");
       return;
     } else if (password.length < 6) {
-      setError('Password min 6 characters');
+      setError("Password min 6 characters");
       return;
     } else if (password !== confirmPassword) {
       setError("Passwords don't match.");
       return;
     }
 
-    setError('');
-    setMutationError('');
+    setError("");
+    setMutationError("");
     try {
       const response = await resetPassword({
         variables: { input: { email, password, token } },
       });
-      localStorage.setItem('token', response.data.resetPassword.token);
+      localStorage.setItem("token", response.data.resetPassword.token);
       await refetch();
       history.push(Routes.HOME);
     } catch (error) {
@@ -85,21 +90,25 @@ const ResetPassword = ({ history, location, refetch }) => {
 
   return (
     <Root>
-      <Head title="Reset Password" />
+      <Head title="Restablecer Contraseña" />
 
       <Container>
         <>
           {queryLoading && <Loading top="lg" />}
           {mutationError || queryError ? (
             <Spacing bottom="md">
-              <Error>{mutationError ? mutationError : queryError.graphQLErrors[0].message}</Error>
+              <Error>
+                {mutationError
+                  ? mutationError
+                  : queryError.graphQLErrors[0].message}
+              </Error>
             </Spacing>
           ) : (
-            ''
+            ""
           )}
 
           <Spacing bottom="md">
-            <H1>Password Reset</H1>
+            <H1>Reiniciar contraseña</H1>
           </Spacing>
 
           <form onSubmit={(e) => handleSubmit(e, resetPassword)}>
@@ -108,7 +117,7 @@ const ResetPassword = ({ history, location, refetch }) => {
               name="password"
               values={password}
               onChange={handleChange}
-              placeholder="Password"
+              placeholder="Contraseña"
             />
 
             <Spacing top="xs" bottom="sm">
@@ -117,7 +126,7 @@ const ResetPassword = ({ history, location, refetch }) => {
                 name="confirmPassword"
                 values={confirmPassword}
                 onChange={handleChange}
-                placeholder="Confirm Password"
+                placeholder="Confirmar Contraseña"
               />
             </Spacing>
 
@@ -127,7 +136,7 @@ const ResetPassword = ({ history, location, refetch }) => {
               </Spacing>
             )}
 
-            <Button disabled={mutationLoading}>Reset Password</Button>
+            <Button disabled={mutationLoading}>Restablecer contraseña</Button>
           </form>
         </>
       </Container>

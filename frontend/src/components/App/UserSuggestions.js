@@ -1,22 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { matchPath } from 'react-router';
-import { generatePath } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { matchPath } from "react-router";
+import { generatePath } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
-import { Loading } from 'components/Loading';
-import { H3, A } from 'components/Text';
-import { Spacing } from 'components/Layout';
-import Avatar from 'components/Avatar';
+import { Loading } from "components/Loading";
+import { H3, A } from "components/Text";
+import { Spacing } from "components/Layout";
+import Avatar from "components/Avatar";
 
-import { useStore } from 'store';
+import { useStore } from "store";
 
-import { USER_SUGGESTIONS } from 'graphql/user';
+import { USER_SUGGESTIONS } from "graphql/user";
 
-import { USER_SUGGESTIONS_WIDTH, HEADER_HEIGHT } from 'constants/Layout';
+import { USER_SUGGESTIONS_WIDTH, HEADER_HEIGHT } from "constants/Layout";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
 
 const Root = styled.div`
   display: none;
@@ -53,7 +53,8 @@ const ListItem = styled.li`
 
 const FullName = styled.div`
   font-weight: ${(p) => p.theme.font.weight.bold};
-  color: ${(p) => (p.active ? p.theme.colors.primary.main : p.theme.colors.text.primary)};
+  color: ${(p) =>
+    p.active ? p.theme.colors.primary.main : p.theme.colors.text.primary};
 `;
 
 const UserName = styled.div`
@@ -89,7 +90,7 @@ const UserSuggestions = ({ pathname }) => {
 
   return (
     <Root>
-      <H3>Suggestions For You</H3>
+      <H3>Sugerencias para tí</H3>
 
       <List>
         {data.suggestPeople.map((user) => (

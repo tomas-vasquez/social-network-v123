@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import styled from "styled-components";
 
-import { Spacing, Overlay, Container } from 'components/Layout';
-import { Error } from 'components/Text';
-import { Button } from 'components/Form';
-import Avatar from 'components/Avatar';
+import { Spacing, Overlay, Container } from "components/Layout";
+import { Error } from "components/Text";
+import { Button } from "components/Form";
+import Avatar from "components/Avatar";
 
-import PostImageUpload from 'pages/Home/PostImageUpload';
+import PostImageUpload from "pages/Home/PostImageUpload";
 
-import { GET_FOLLOWED_POSTS, CREATE_POST } from 'graphql/post';
-import { GET_AUTH_USER, GET_USER_POSTS } from 'graphql/user';
+import { GET_FOLLOWED_POSTS, CREATE_POST } from "graphql/post";
+import { GET_AUTH_USER, GET_USER_POSTS } from "graphql/user";
 
-import { useStore } from 'store';
+import { useStore } from "store";
 
-import { PROFILE_PAGE_POSTS_LIMIT } from 'constants/DataLimit';
-import { HOME_PAGE_POSTS_LIMIT } from 'constants/DataLimit';
-import { MAX_POST_IMAGE_SIZE } from 'constants/ImageSize';
+import { PROFILE_PAGE_POSTS_LIMIT } from "constants/DataLimit";
+import { HOME_PAGE_POSTS_LIMIT } from "constants/DataLimit";
+import { MAX_POST_IMAGE_SIZE } from "constants/ImageSize";
 
-import { useGlobalMessage } from 'hooks/useGlobalMessage';
+import { useGlobalMessage } from "hooks/useGlobalMessage";
 
 const Root = styled(Container)`
   border: 0;
@@ -41,7 +41,7 @@ const Textarea = styled.textarea`
   outline: none;
   resize: none;
   transition: 0.1s ease-out;
-  height: ${(p) => (p.focus ? '80px' : '40px')};
+  height: ${(p) => (p.focus ? "80px" : "40px")};
   font-size: ${(p) => p.theme.font.size.xs};
   background-color: ${(p) => p.theme.colors.grey[100]};
   border-radius: ${(p) => p.theme.radius.md};
@@ -79,10 +79,10 @@ const Buttons = styled.div`
  */
 const CreatePost = () => {
   const [{ auth }] = useStore();
-  const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [apiError, setApiError] = useState(false);
   const message = useGlobalMessage();
   const [createPost, { loading }] = useMutation(CREATE_POST, {
@@ -108,10 +108,10 @@ const CreatePost = () => {
   });
 
   const handleReset = () => {
-    setTitle('');
-    setImage('');
+    setTitle("");
+    setImage("");
     setIsFocused(false);
-    setError('');
+    setError("");
     setApiError(false);
   };
 
@@ -123,7 +123,11 @@ const CreatePost = () => {
     if (!file) return;
 
     if (file.size >= MAX_POST_IMAGE_SIZE) {
-      message.error(`File size should be less then ${MAX_POST_IMAGE_SIZE / 1000000}MB`);
+      message.error(
+        `El tamaño del archivo debe ser menor que ${
+          MAX_POST_IMAGE_SIZE / 1000000
+        }MB`
+      );
       return;
     }
 
@@ -153,7 +157,12 @@ const CreatePost = () => {
     <>
       {isFocused && <Overlay onClick={handleReset} />}
 
-      <Root zIndex={isFocused ? 'md' : 'xs'} color="white" radius="sm" padding="sm">
+      <Root
+        zIndex={isFocused ? "md" : "xs"}
+        color="white"
+        radius="sm"
+        padding="sm"
+      >
         <form onSubmit={handleSubmit}>
           <Wrapper>
             <Avatar image={auth.user.image} size={40} />
@@ -165,10 +174,12 @@ const CreatePost = () => {
               value={title}
               onFocus={handleOnFocus}
               onChange={handleTitleChange}
-              placeholder="Add a post"
+              placeholder="Añadir un post"
             />
 
-            {!isFocused && <PostImageUpload handleChange={handlePostImageUpload} />}
+            {!isFocused && (
+              <PostImageUpload handleChange={handlePostImageUpload} />
+            )}
           </Wrapper>
 
           {image && (
@@ -181,7 +192,10 @@ const CreatePost = () => {
 
           {isFocused && (
             <Options>
-              <PostImageUpload label="Photo" handleChange={handlePostImageUpload} />
+              <PostImageUpload
+                label="Photo"
+                handleChange={handlePostImageUpload}
+              />
 
               <Buttons>
                 <Button text type="button" onClick={handleReset}>
@@ -197,7 +211,11 @@ const CreatePost = () => {
           {apiError ||
             (error && (
               <Spacing top="xs" bottom="sm">
-                <Error size="xs">{apiError ? 'Something went wrong, please try again.' : error}</Error>
+                <Error size="xs">
+                  {apiError
+                    ? "Algo salió mal. Por favor, vuelva a intentarlo."
+                    : error}
+                </Error>
               </Spacing>
             ))}
         </form>

@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { generatePath } from 'react-router-dom';
-import styled from 'styled-components';
-import { useApolloClient } from '@apollo/client';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { generatePath } from "react-router-dom";
+import styled from "styled-components";
+import { useApolloClient } from "@apollo/client";
 
-import Comment from 'components/Comment';
-import CreateComment from 'components/CreateComment';
-import Like from 'components/Like';
-import { DotsIcon, PostCommentIcon } from 'components/icons';
-import { Spacing } from 'components/Layout';
-import { A, H3 } from 'components/Text';
-import { Button } from 'components/Form';
-import PostCardOption from 'components/PostCard/PostCardOption';
-import Modal from 'components/Modal';
-import Avatar from 'components/Avatar';
+import Comment from "components/Comment";
+import CreateComment from "components/CreateComment";
+import Like from "components/Like";
+import { DotsIcon, PostCommentIcon } from "components/icons";
+import { Spacing } from "components/Layout";
+import { A, H3 } from "components/Text";
+import { Button } from "components/Form";
+import PostCardOption from "components/PostCard/PostCardOption";
+import Modal from "components/Modal";
+import Avatar from "components/Avatar";
 
-import { GET_FOLLOWED_POSTS, DELETE_POST } from 'graphql/post';
-import { GET_AUTH_USER } from 'graphql/user';
-import { GET_USER_POSTS } from 'graphql/user';
+import { GET_FOLLOWED_POSTS, DELETE_POST } from "graphql/post";
+import { GET_AUTH_USER } from "graphql/user";
+import { GET_USER_POSTS } from "graphql/user";
 
-import { HOME_PAGE_POSTS_LIMIT, PROFILE_PAGE_POSTS_LIMIT } from 'constants/DataLimit';
+import {
+  HOME_PAGE_POSTS_LIMIT,
+  PROFILE_PAGE_POSTS_LIMIT,
+} from "constants/DataLimit";
 
-import { useStore } from 'store';
+import { useStore } from "store";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
 
-import { timeAgo } from 'utils/date';
+import { timeAgo } from "utils/date";
 
 const Root = styled.div`
   width: 100%;
@@ -116,7 +119,17 @@ const CommentLine = styled.div`
 /**
  * Component for rendering user post
  */
-const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, likes, postId, openModal }) => {
+const PostCard = ({
+  author,
+  imagePublicId,
+  comments,
+  title,
+  createdAt,
+  image,
+  likes,
+  postId,
+  openModal,
+}) => {
   const [{ auth }] = useStore();
   const client = useApolloClient();
   const [isCommentOpen, setIsCommentOpen] = useState(false);
@@ -168,7 +181,12 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
     <>
       <Root>
         <Modal onClose={closeOption} open={isOptionOpen}>
-          <PostCardOption postId={postId} closeOption={closeOption} author={author} deletePost={deletePost} />
+          <PostCardOption
+            postId={postId}
+            closeOption={closeOption}
+            author={author}
+            deletePost={deletePost}
+          />
         </Modal>
 
         <TopRow>
@@ -202,15 +220,22 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
               {likes.length} likes
               <Spacing />
               <StyledButton onClick={toggleComment} text>
-                {comments.length} comments
+                {comments.length} comentarios
               </StyledButton>
             </Count>
 
             <Icons>
-              <Like fullWidth withText user={author} postId={postId} likes={likes} />
+              <Like
+                fullWidth
+                withText
+                user={author}
+                postId={postId}
+                likes={likes}
+              />
 
               <Button fullWidth text onClick={toggleCreateComment}>
-                <PostCommentIcon /> <Spacing inline left="xxs" /> <b>Comment</b>
+                <PostCommentIcon /> <Spacing inline left="xxs" />{" "}
+                <b>Comentar</b>
               </Button>
             </Icons>
           </CountAndIcons>
@@ -219,14 +244,22 @@ const PostCard = ({ author, imagePublicId, comments, title, createdAt, image, li
             <>
               <Spacing top="xs">
                 <CommentLine />
-                <CreateComment post={{ id: postId, author }} focus={isCommentOpen} />
+                <CreateComment
+                  post={{ id: postId, author }}
+                  focus={isCommentOpen}
+                />
               </Spacing>
 
               {comments.length > 0 && <CommentLine />}
 
               <Comments>
                 {comments.map((comment) => (
-                  <Comment key={comment.id} comment={comment} postId={postId} postAuthor={author} />
+                  <Comment
+                    key={comment.id}
+                    comment={comment}
+                    postId={postId}
+                    postAuthor={author}
+                  />
                 ))}
               </Comments>
             </>

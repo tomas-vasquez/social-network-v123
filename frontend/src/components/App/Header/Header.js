@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import { withRouter } from "react-router-dom";
 
-import { NotificationIcon, MenuIcon, EnvelopeOpenIcon } from 'components/icons';
-import { Container, Spacing } from 'components/Layout';
-import { A } from 'components/Text';
-import { Button } from 'components/Form';
-import Avatar from 'components/Avatar';
-import Search from 'components/Search';
-import HeaderDropDowns from './HeaderDropDowns';
+import { NotificationIcon, MenuIcon, EnvelopeOpenIcon } from "components/icons";
+import { Container, Spacing } from "components/Layout";
+import { A } from "components/Text";
+import { Button } from "components/Form";
+import Avatar from "components/Avatar";
+import Search from "components/Search";
+import HeaderDropDowns from "./HeaderDropDowns";
 
-import { useClickOutside } from 'hooks/useClickOutside';
+import { useClickOutside } from "hooks/useClickOutside";
 
-import { useStore } from 'store';
+import { useStore } from "store";
 
-import { HEADER_HEIGHT } from 'constants/Layout';
-import SiteInfo from 'constants/SiteInfo.json';
+import { HEADER_HEIGHT } from "constants/Layout";
+import SiteInfo from "constants/SiteInfo.json";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
 
 const Root = styled(Container)`
   position: sticky;
@@ -43,7 +43,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: 100%;
 
-  @media (min-width: ${(p) => parseInt(p.theme.screen.lg, 10) + 20 + 'px'}) {
+  @media (min-width: ${(p) => parseInt(p.theme.screen.lg, 10) + 20 + "px"}) {
     width: ${(p) => p.theme.screen.lg};
   }
 `;
@@ -147,9 +147,9 @@ const Header = ({ location, toggleSideBar }) => {
     if (dropdownOpen) {
       closeDropDown();
     } else {
-      if (dropdownType === 'NOTIFICATION') {
+      if (dropdownType === "NOTIFICATION") {
         setDropdownData(auth.user.newNotifications);
-      } else if (dropdownType === 'MESSAGE') {
+      } else if (dropdownType === "MESSAGE") {
         setDropdownData(auth.user.newConversations);
       }
 
@@ -168,13 +168,13 @@ const Header = ({ location, toggleSideBar }) => {
           <Logo to={Routes.HOME}>{SiteInfo.name}</Logo>
 
           <Spacing left="sm" right="md">
-            <Search location={location} placeholder="Search" />
+            <Search location={location} placeholder="Buscar" />
           </Spacing>
         </LeftSide>
 
         <RightSide>
           <Spacing right="md">
-            <Button ghost onClick={() => handleIconClick('MESSAGE')}>
+            <Button ghost onClick={() => handleIconClick("MESSAGE")}>
               {auth.user.newConversations.length > 0 && (
                 <MessageCount>{auth.user.newConversations.length}</MessageCount>
               )}
@@ -184,15 +184,17 @@ const Header = ({ location, toggleSideBar }) => {
           </Spacing>
 
           <Spacing right="md">
-            <Button ghost onClick={() => handleIconClick('NOTIFICATION')}>
+            <Button ghost onClick={() => handleIconClick("NOTIFICATION")}>
               {auth.user.newNotifications.length > 0 && (
-                <NotificationCount>{auth.user.newNotifications.length}</NotificationCount>
+                <NotificationCount>
+                  {auth.user.newNotifications.length}
+                </NotificationCount>
               )}
               <NotificationIcon />
             </Button>
           </Spacing>
 
-          <Button ghost onClick={() => handleIconClick('USER')}>
+          <Button ghost onClick={() => handleIconClick("USER")}>
             <Avatar image={auth.user.image} />
           </Button>
         </RightSide>
