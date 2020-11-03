@@ -126,10 +126,12 @@ const SignUp = ({ history, refetch }) => {
 
       <Welcome>
         <div>
-          <Heading color="white">Conectate con tu futuro laboral.</Heading>
+          <Heading color="white">Iniciar sesión</Heading>
         </div>
-
-        <p>Haste conocer en el mundo profesional.</p>
+        <p>
+          Explora nuevos lugares, conoce personas de todo el mundo y comparte
+          tus experiencias!
+        </p>
       </Welcome>
 
       <Form>
