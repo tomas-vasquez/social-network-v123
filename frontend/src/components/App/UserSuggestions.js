@@ -95,13 +95,13 @@ const UserSuggestions = ({ pathname }) => {
       <List>
         {data.suggestPeople.map((user) => (
           <ListItem key={user.id}>
-            <A
+            {/* <A
               to={generatePath(Routes.USER_PROFILE, {
                 username: user.username,
               })}
             >
               <Avatar image={user.image} />
-            </A>
+            </A> */}
 
             <Spacing left="xs">
               <A
