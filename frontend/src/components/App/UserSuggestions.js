@@ -95,6 +95,8 @@ const UserSuggestions = ({ pathname }) => {
       <List>
         {data.suggestPeople.map((user) => (
           <ListItem key={user.id}>
+            {JSON.stringify(user)}
+
             {/* <A
               to={generatePath(Routes.USER_PROFILE, {
                 username: user.username,
@@ -104,14 +106,14 @@ const UserSuggestions = ({ pathname }) => {
             </A> */}
 
             <Spacing left="xs">
-              <A
+              {/* <A
                 to={generatePath(Routes.USER_PROFILE, {
                   username: user.username,
                 })}
               >
                 <FullName>{user.fullName}</FullName>
                 <UserName>@{user.username}</UserName>
-              </A>
+              </A> */}
             </Spacing>
           </ListItem>
         ))}
