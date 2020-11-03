@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { generatePath } from 'react-router-dom';
-import styled from 'styled-components';
-import { useApolloClient } from '@apollo/client';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { generatePath } from "react-router-dom";
+import styled from "styled-components";
+import { useApolloClient } from "@apollo/client";
 
-import { A } from 'components/Text';
-import { Spacing } from 'components/Layout';
-import Avatar from 'components/Avatar';
+import { A } from "components/Text";
+import { Spacing } from "components/Layout";
+import Avatar from "components/Avatar";
 
-import { useClickOutside } from 'hooks/useClickOutside';
+import { useClickOutside } from "hooks/useClickOutside";
 
-import { GET_AUTH_USER } from 'graphql/user';
-import { UPDATE_NOTIFICATION_SEEN } from 'graphql/notification';
+import { GET_AUTH_USER } from "graphql/user";
+import { UPDATE_NOTIFICATION_SEEN } from "graphql/notification";
 
-import { useStore } from 'store';
+import { useStore } from "store";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
 
 const NotificationItem = styled.div`
   display: flex;
@@ -112,11 +112,11 @@ const Notification = ({ notification, close }) => {
         </LeftSide>
       </A>
 
-      {notification.follow && <Action>started following you</Action>}
+      {notification.follow && <Action>te está siguiendo desde ahora</Action>}
 
       {notification.like && (
         <Action>
-          likes your photo
+          le gusta tu foto
           <A to={generatePath(Routes.POST, { id: notification.like.post.id })}>
             <PostImage>
               <Image src={notification.like.post.image} />
@@ -127,8 +127,10 @@ const Notification = ({ notification, close }) => {
 
       {notification.comment && (
         <Action>
-          commented on your photo
-          <A to={generatePath(Routes.POST, { id: notification.comment.post.id })}>
+          comnetó tu foto
+          <A
+            to={generatePath(Routes.POST, { id: notification.comment.post.id })}
+          >
             <PostImage>
               <Image src={notification.comment.post.image} />
             </PostImage>
