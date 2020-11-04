@@ -22,9 +22,9 @@ https://social-network-v123.vercel.app/
 
 ## Screenshots of the app
 
-|            Login            |            Home             | Profile                     |
-| :-------------------------: | :-------------------------: | --------------------------- |
-| ![](assets/capture (1).png) | ![](assets/capture (2).png) | ![](assets/capture (3).png) |
+|             Login             |             Home              | Profile                       |
+| :---------------------------: | :---------------------------: | ----------------------------- |
+| ![](./assets/capture (1).png) | ![](./assets/capture (2).png) | ![](./assets/capture (3).png) |
 
 
 
